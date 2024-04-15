@@ -7,8 +7,11 @@ class AppTheme {
           color: color,
           width: 1,
         ),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(12),
       );
+
+  // static final BottomNavigationBarTheme
+
   static final darkThemeMode = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: AppPallete.backgroundColor,
     appBarTheme: const AppBarTheme(
@@ -20,6 +23,18 @@ class AppTheme {
       ),
       side: BorderSide.none,
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size(480, 24),
+        padding: const EdgeInsets.symmetric(
+          vertical: 12,
+          horizontal: 32,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.symmetric(
         vertical: 12.0,
@@ -29,6 +44,15 @@ class AppTheme {
       enabledBorder: _border(),
       focusedBorder: _border(AppPallete.borderWhiteColor),
       errorBorder: _border(AppPallete.errorColor),
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: AppPallete.backgroundColor,
+    ),
+    navigationBarTheme: const NavigationBarThemeData(
+      backgroundColor: Color.fromARGB(255, 9, 9, 10),
+      surfaceTintColor: AppPallete.transparentColor,
+      overlayColor: MaterialStatePropertyAll(AppPallete.transparentColor),
+      labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
     ),
   );
 }
