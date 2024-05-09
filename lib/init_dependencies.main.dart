@@ -4,6 +4,7 @@ final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
   _initAuth();
+  _initExercise();
 
   final supabase = await Supabase.initialize(
     url: EnvironmentConfig.publicSupabaseUrl,
@@ -72,4 +73,39 @@ void _initAuth() {
           currentUser: serviceLocator(),
           appUserCubit: serviceLocator(),
         ));
+}
+
+void _initExercise() {
+  // Datasource
+  serviceLocator
+    ..registerFactory<ExerciseRemoteDataSource>(
+      () => ExerciseRemoteDataSourceImpl(
+        serviceLocator(),
+      ),
+    )
+    // Repository
+    ..registerFactory<ExerciseRepository>(
+      () => ExerciseRepositoryImpl(
+        serviceLocator(),
+        serviceLocator(),
+      ),
+    )
+    // Usecases
+    ..registerFactory(
+      () => GetAllExercises(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory(
+      () => GetExercise(
+        serviceLocator(),
+      ),
+    )
+    // Bloc
+    ..registerLazySingleton(
+      () => ExerciseBloc(
+        getAllExercises: serviceLocator(),
+        getExercise: serviceLocator(),
+      ),
+    );
 }

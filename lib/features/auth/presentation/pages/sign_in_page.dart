@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym8/app_navigator.dart';
 import 'package:gym8/core/common/widgets/loader.dart';
 import 'package:gym8/core/theme/app_pallete.dart';
 import 'package:gym8/core/utils/show_snackbar.dart';
@@ -12,6 +11,7 @@ import 'package:gym8/features/auth/presentation/widgets/auth_header.dart';
 import 'package:gym8/features/auth/presentation/widgets/auth_button.dart';
 import 'package:gym8/features/auth/presentation/widgets/auth_divider.dart';
 import 'package:gym8/features/auth/presentation/widgets/auth_google_button.dart';
+import 'package:gym8/features/exercise/presentation/widgets/main_wrapper.dart';
 
 class SignInPage extends StatefulWidget {
   static route() => MaterialPageRoute(
@@ -52,7 +52,7 @@ class _SignInPageState extends State<SignInPage> {
             } else if (state is AuthSuccess) {
               Navigator.pushAndRemoveUntil(
                 context,
-                AppNavigator.route(),
+                MainWrapper.route(),
                 (route) => false,
               );
             }

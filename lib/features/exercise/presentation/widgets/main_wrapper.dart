@@ -5,22 +5,23 @@ import 'package:gym8/core/common/widgets/loader.dart';
 import 'package:gym8/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:gym8/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:gym8/features/exercise/presentation/pages/home_page.dart';
+import 'package:gym8/features/exercise/presentation/pages/my_page.dart';
 
-class AppNavigator extends StatefulWidget {
+class MainWrapper extends StatefulWidget {
   static route() => MaterialPageRoute(
-        builder: (context) => const AppNavigator(),
+        builder: (context) => const MainWrapper(),
       );
 
-  const AppNavigator({super.key});
+  const MainWrapper({super.key});
 
   @override
-  State<AppNavigator> createState() => _AppNavigatorState();
+  State<MainWrapper> createState() => _MainWrapperState();
 }
 
-class _AppNavigatorState extends State<AppNavigator> {
+class _MainWrapperState extends State<MainWrapper> {
   static const List<Destination> allDestinations = <Destination>[
-    Destination(0, 'Teal', Icons.home, Colors.cyan),
-    Destination(1, 'Cyan', Icons.accessibility_new_outlined, Colors.cyan),
+    Destination(0, 'Home', Icons.home),
+    Destination(1, 'My', Icons.account_circle_rounded),
   ];
 
   int selectedIndex = 0;
@@ -43,6 +44,9 @@ class _AppNavigatorState extends State<AppNavigator> {
         }
 
         return Scaffold(
+          appBar: AppBar(
+              // title: const Text("Gym 8"),
+              ),
           bottomNavigationBar: NavigationBar(
             selectedIndex: selectedIndex,
             onDestinationSelected: (int index) {
@@ -52,19 +56,25 @@ class _AppNavigatorState extends State<AppNavigator> {
             },
             destinations: allDestinations
                 .map<NavigationDestination>(
-                    (Destination destination) => NavigationDestination(
-                          icon: Icon(
-                            destination.icon,
-                            color: destination.color,
-                          ),
-                          label: destination.title,
-                        ))
+                  (Destination destination) => NavigationDestination(
+                    icon: Icon(
+                      destination.icon,
+                    ),
+                    label: destination.title,
+                  ),
+                )
                 .toList(),
           ),
-          body: <Widget>[
-            const HomePage(),
-            const HomePage(),
-          ][selectedIndex],
+          body: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 12,
+              horizontal: 16,
+            ),
+            child: <Widget>[
+              const HomePage(),
+              const MyPage(),
+            ][selectedIndex],
+          ),
         );
       },
     );

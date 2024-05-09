@@ -53,6 +53,15 @@ class AppTheme {
       surfaceTintColor: AppPallete.transparentColor,
       overlayColor: MaterialStatePropertyAll(AppPallete.transparentColor),
       labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+      indicatorColor: AppPallete.purpleColor,
+      shadowColor: AppPallete.purpleColor,
+      elevation: 4,
+    ),
+    iconTheme: const IconThemeData(
+      color: AppPallete.purpleColor,
+    ),
+    buttonTheme: const ButtonThemeData(
+      minWidth: 54,
     ),
   );
 }

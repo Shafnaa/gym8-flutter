@@ -27,9 +27,9 @@ class _DestinationViewState extends State<DestinationView> {
           builder: (BuildContext context) {
             switch (settings.name) {
               case '/':
-                return HomePage();
+                return const HomePage();
               case '/list':
-                return HomePage();
+                return const HomePage();
             }
             assert(false);
             return const SizedBox();
