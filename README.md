@@ -1,4 +1,5 @@
-![✨ Mock Up](https://github.com/kimnopal/maya/assets/88240429/431922f0-4ef3-41ff-85c7-03d1c0bf8975)
+![✨ Mock Up](https://github.com/Shafnaa/gym8-flutter/assets/88240429/90cadf26-78d8-4125-bc27-cc55de81063e)
+
 
 # 👋 About Gym8: Your Fitness Buddy!
 
@@ -6,9 +7,9 @@ Gym8 is a fitness buddy application that is perfect for someone looking to start
 
 ## Screenshot
 
-<img src="https://github.com/kimnopal/maya/assets/88240429/3ef6800d-03af-49b9-8925-1667a625de0f" alt="Screenshot 1" width="300"><br><br>
+<img src="https://github.com/Shafnaa/gym8-flutter/assets/88240429/7ce99930-736c-4243-9c5d-8862637198b4" alt="Sign In" width="300"><img src="https://github.com/Shafnaa/gym8-flutter/assets/88240429/fa95cc63-5116-42a2-9a62-ab8f3105ed1e" alt="Sign Up" width="300">
 
-<img src="https://github.com/kimnopal/maya/assets/88240429/dd88e6ae-0bff-472a-a103-9db244effd29" alt="Screenshot 2" width="500"><br><br>
+<img src="https://github.com/Shafnaa/gym8-flutter/assets/88240429/9705b03e-8d5c-433b-aaa0-bf392e597c80" alt="Home" width="300"><img src="https://github.com/Shafnaa/gym8-flutter/assets/88240429/afc7034a-a282-4e6b-97e2-c6e48ecb0b82" alt="Detail Page" width="300">
 
 ## How to run the app
 
