@@ -22,7 +22,8 @@ class ExerciseItem extends StatelessWidget {
       ),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(context, DetailPage.route(exercise));
+          DetailPage.route(context, exercise);
+          // Navigator.push(context, DetailPage.route(exercise));
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(

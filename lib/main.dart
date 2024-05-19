@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym8/config/routes/routes.dart';
 import 'package:gym8/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:gym8/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:gym8/features/exercise/presentation/bloc/exercise_bloc.dart';
+import 'package:gym8/features/schedule/presentation/bloc/schedule_bloc.dart';
 import 'package:gym8/features/exercise/presentation/widgets/main_wrapper.dart';
 import 'package:gym8/init_dependencies.dart';
 import 'package:gym8/core/theme/theme.dart';
@@ -23,6 +25,9 @@ Future<void> main() async {
       BlocProvider(
         create: (_) => serviceLocator<ExerciseBloc>(),
       ),
+      BlocProvider(
+        create: (context) => serviceLocator<ScheduleBloc>(),
+      )
     ],
     child: const MyApp(),
   ));
@@ -53,6 +58,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: "Gym 8",
       theme: AppTheme.darkThemeMode,
+      onGenerateRoute: AppRoutes.onGenerateRoutes,
       home: BlocSelector<AppUserCubit, AppUserState, bool>(
         selector: (state) {
           return state is AppUserSignedIn;

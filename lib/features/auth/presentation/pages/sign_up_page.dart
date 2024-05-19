@@ -14,8 +14,12 @@ import 'package:gym8/features/auth/presentation/widgets/auth_google_button.dart'
 import 'package:gym8/features/exercise/presentation/widgets/main_wrapper.dart';
 
 class SignUpPage extends StatefulWidget {
-  static route() => MaterialPageRoute(
-        builder: (context) => const SignUpPage(),
+  static route(
+    BuildContext context,
+  ) =>
+      Navigator.pushNamed(
+        context,
+        '/SignUp',
       );
 
   const SignUpPage({super.key});
@@ -52,11 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
             if (state is AuthFailure) {
               showSnackBar(context, state.message);
             } else if (state is AuthSuccess) {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MainWrapper.route(),
-                (route) => false,
-              );
+              MainWrapper.route(context);
             }
           },
           builder: (context, state) {
@@ -79,9 +79,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         image: AssetImage('assets/my_icon.png'),
                       ),
                       GestureDetector(
-                        onTap: () => {
-                          Navigator.push(context, SignInPage.route()),
-                        },
+                        onTap: () => SignInPage.route(context),
                         child: const Image(
                           height: 20,
                           image: AssetImage("assets/cross_icon.png"),
@@ -140,9 +138,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   const SizedBox(height: 16),
                   GestureDetector(
-                    onTap: () => {
-                      Navigator.push(context, SignInPage.route()),
-                    },
+                    onTap: () => SignInPage.route(context),
                     child: RichText(
                       text: const TextSpan(
                         text: "Already have an account? ",

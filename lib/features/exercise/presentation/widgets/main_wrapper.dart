@@ -8,9 +8,8 @@ import 'package:gym8/features/exercise/presentation/pages/home_page.dart';
 import 'package:gym8/features/exercise/presentation/pages/my_page.dart';
 
 class MainWrapper extends StatefulWidget {
-  static route() => MaterialPageRoute(
-        builder: (context) => const MainWrapper(),
-      );
+  static route(BuildContext context) =>
+      Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
 
   const MainWrapper({super.key});
 
@@ -31,11 +30,12 @@ class _MainWrapperState extends State<MainWrapper> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is! AuthSuccess) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            SignInPage.route(),
-            (route) => false,
-          );
+          SignInPage.route(context);
+          // Navigator.pushAndRemoveUntil(
+          //   context,
+          //   SignInPage.route(),
+          //   (route) => false,
+          // );
         }
       },
       builder: (context, state) {

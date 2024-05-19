@@ -3,7 +3,16 @@ import 'package:gym8/features/exercise/data/models/exercise_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class ExerciseRemoteDataSource {
-  Future<List<ExerciseModel>> getAllExercises();
+  Future<List<ExerciseModel>> getAllExercises(
+      // {
+      // String? filterByName,
+      // List<int>? filterByMuscles,
+      // List<int>? filterByTypes,
+      // List<int>? filterByEquipments,
+      // List<int>? filterByDifficulties,
+      // int limitDocuments,
+      // }
+      );
   Future<ExerciseModel> getExercise({
     required int id,
   });
@@ -14,15 +23,42 @@ class ExerciseRemoteDataSourceImpl implements ExerciseRemoteDataSource {
   ExerciseRemoteDataSourceImpl(this.supabaseClient);
 
   @override
-  Future<List<ExerciseModel>> getAllExercises() async {
+  Future<List<ExerciseModel>> getAllExercises(
+      // {
+      // String? filterByName,
+      // List<int>? filterByMuscles,
+      // List<int>? filterByTypes,
+      // List<int>? filterByEquipments,
+      // List<int>? filterByDifficulties,
+      // int limitDocuments = 10,
+      // }
+      ) async {
     try {
-      final exercises = await supabaseClient
-          .from(
-            'exercises',
-          )
-          .select(
+      var query = supabaseClient.from("exercises").select(
             '*, muscles (name, image_url), types (name), equipments (name), difficulties (name)',
           );
+
+      // if (filterByName != null) {
+      //   query = query.eq("name", filterByName);
+      // }
+
+      // if (filterByMuscles != null) {
+      //   query = query.inFilter("muscle_id", filterByMuscles);
+      // }
+
+      // if (filterByTypes != null) {
+      //   query = query.inFilter("type_id", filterByTypes);
+      // }
+
+      // if (filterByEquipments != null) {
+      //   query = query.inFilter("equipment_id", filterByEquipments);
+      // }
+
+      // if (filterByDifficulties != null) {
+      //   query = query.inFilter("difficulty_id", filterByDifficulties);
+      // }
+
+      final exercises = await query;
 
       return exercises
           .map(

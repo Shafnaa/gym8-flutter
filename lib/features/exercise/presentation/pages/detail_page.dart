@@ -5,10 +5,14 @@ import 'package:gym8/features/exercise/presentation/widgets/schedule_button.dart
 import 'package:gym8/features/exercise/presentation/widgets/type_category.dart';
 
 class DetailPage extends StatelessWidget {
-  static route(Exercise exercise) => MaterialPageRoute(
-        builder: (context) => DetailPage(
-          exercise: exercise,
-        ),
+  static route(
+    BuildContext context,
+    Exercise exercise,
+  ) =>
+      Navigator.pushNamed(
+        context,
+        '/Details',
+        arguments: exercise,
       );
 
   final Exercise exercise;
