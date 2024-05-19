@@ -5,6 +5,7 @@ final serviceLocator = GetIt.instance;
 Future<void> initDependencies() async {
   _initAuth();
   _initExercise();
+  _initSchedule();
 
   final supabase = await Supabase.initialize(
     url: EnvironmentConfig.publicSupabaseUrl,
@@ -76,8 +77,8 @@ void _initAuth() {
 }
 
 void _initExercise() {
-  // Datasource
   serviceLocator
+    // Datasource
     ..registerFactory<ExerciseRemoteDataSource>(
       () => ExerciseRemoteDataSourceImpl(
         serviceLocator(),
@@ -106,6 +107,35 @@ void _initExercise() {
       () => ExerciseBloc(
         getAllExercises: serviceLocator(),
         getExercise: serviceLocator(),
+      ),
+    );
+}
+
+void _initSchedule() {
+  serviceLocator
+    // Data Source
+    ..registerFactory<ScheduleRemoteDataSource>(
+      () => ScheduleRemoteDataSourceImpl(
+        serviceLocator(),
+      ),
+    )
+    // Repository
+    ..registerFactory<ScheduleRepository>(
+      () => ScheduleRepositoryImpl(
+        serviceLocator(),
+        serviceLocator(),
+      ),
+    )
+    // Usecases
+    ..registerFactory(
+      () => GetAllSchedules(
+        serviceLocator(),
+      ),
+    )
+    // Bloc
+    ..registerFactory(
+      () => ScheduleBloc(
+        getAllSchedules: serviceLocator(),
       ),
     );
 }

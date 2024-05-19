@@ -16,6 +16,11 @@ import 'package:gym8/features/exercise/domain/repositories/exercise_repository.d
 import 'package:gym8/features/exercise/domain/usecases/get_all_exercises.dart';
 import 'package:gym8/features/exercise/domain/usecases/get_exercise.dart';
 import 'package:gym8/features/exercise/presentation/bloc/exercise_bloc.dart';
+import 'package:gym8/features/schedule/data/datasources/schedule_remote_data_source.dart';
+import 'package:gym8/features/schedule/data/repositories/schedule_repository_impl.dart';
+import 'package:gym8/features/schedule/domain/repositories/schedule_repository.dart';
+import 'package:gym8/features/schedule/domain/usecases/get_all_schedules.dart';
+import 'package:gym8/features/schedule/presentation/bloc/schedule_bloc.dart';
 import 'package:gym8/main_config.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
