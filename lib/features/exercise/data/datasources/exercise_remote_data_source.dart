@@ -35,7 +35,7 @@ class ExerciseRemoteDataSourceImpl implements ExerciseRemoteDataSource {
       ) async {
     try {
       var query = supabaseClient.from("exercises").select(
-            '*, muscles (name, image_url), types (name), equipments (name), difficulties (name)',
+            '*, muscles (*), types (*), equipments (*), difficulties (*)',
           );
 
       // if (filterByName != null) {
@@ -62,13 +62,7 @@ class ExerciseRemoteDataSourceImpl implements ExerciseRemoteDataSource {
 
       return exercises
           .map(
-            (exercise) => ExerciseModel.fromJson(exercise).copyWith(
-              muscleName: exercise['muscles']['name'],
-              muscleImageUrl: exercise['muscles']['image_url'],
-              typeName: exercise['types']['name'],
-              equipmentName: exercise['equipments']['name'],
-              difficultyName: exercise['difficulties']['name'],
-            ),
+            (exercise) => ExerciseModel.fromJson(exercise),
           )
           .toList();
     } on PostgrestException catch (e) {
@@ -88,20 +82,14 @@ class ExerciseRemoteDataSourceImpl implements ExerciseRemoteDataSource {
             'exercises',
           )
           .select(
-            '*, muscles (name), types (name), equipments (name), difficulties (name)',
+            '*, muscles (*), types (*), equipments (*), difficulties (*)',
           )
           .eq(
             'id',
             id,
           );
 
-      return ExerciseModel.fromJson(exercise.first).copyWith(
-        muscleName: exercise.first['muscles']['name'],
-        muscleImageUrl: exercise.first['muscles']['image_url'],
-        typeName: exercise.first['types']['name'],
-        equipmentName: exercise.first['equipments']['name'],
-        difficultyName: exercise.first['difficulties']['name'],
-      );
+      return ExerciseModel.fromJson(exercise.first);
     } on PostgrestException catch (e) {
       throw ServerException(e.message);
     } catch (e) {

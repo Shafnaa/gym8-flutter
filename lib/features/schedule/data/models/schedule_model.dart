@@ -1,43 +1,45 @@
+import 'package:gym8/features/schedule/domain/entities/day.dart';
 import 'package:gym8/features/schedule/domain/entities/schedule.dart';
+import 'package:gym8/features/schedule/domain/entities/split.dart';
 
 class ScheduleModel extends Schedule {
   ScheduleModel({
     required super.id,
-    required super.dayId,
-    super.dayName,
-    required super.splitId,
-    super.splitName,
+    required super.day,
+    required super.split,
   });
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
-      'day_id': dayId,
-      'split_id': splitId,
+      'day_id': day.id,
+      'split_id': split.id,
     };
   }
 
   factory ScheduleModel.fromJson(Map<String, dynamic> map) {
     return ScheduleModel(
       id: map['id'] as int,
-      dayId: map['day_id'] as int,
-      splitId: map['split_id'] as int,
+      day: Day(
+        id: map['days']['id'] as int,
+        name: map['days']['name'] as String,
+      ),
+      split: Split(
+        id: map['splits']['id'] as int,
+        name: map['splits']['name'] as String,
+      ),
     );
   }
 
   ScheduleModel copyWith({
     int? id,
-    int? dayId,
-    String? dayName,
-    int? splitId,
-    String? splitName,
+    Day? day,
+    Split? split,
   }) {
     return ScheduleModel(
       id: id ?? this.id,
-      dayId: dayId ?? this.dayId,
-      dayName: dayName ?? this.dayName,
-      splitId: splitId ?? this.splitId,
-      splitName: splitName ?? this.splitName,
+      day: day ?? this.day,
+      split: split ?? this.split,
     );
   }
 }

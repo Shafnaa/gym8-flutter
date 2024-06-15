@@ -22,9 +22,24 @@ class HistoryRepositoryImpl implements HistoryRepository {
         return left(Failure(Constants.noConnectionErrorMessage));
       }
 
-      final historys = await historyRemoteDataSource.getAllHistories();
+      final histories = await historyRemoteDataSource.getAllHistories();
 
-      return right(historys);
+      return right(histories);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<History>>> recordHistory() async {
+    try {
+      if (!await (connectionChecker.isConnected)) {
+        return left(Failure(Constants.noConnectionErrorMessage));
+      }
+
+      final history = await historyRemoteDataSource.recordHistory();
+
+      return right(history);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }

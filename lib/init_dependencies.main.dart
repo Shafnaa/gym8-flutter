@@ -6,6 +6,8 @@ Future<void> initDependencies() async {
   _initAuth();
   _initExercise();
   _initSchedule();
+  _initExerciseSchedule();
+  _initHistory();
 
   final supabase = await Supabase.initialize(
     url: EnvironmentConfig.publicSupabaseUrl,
@@ -136,6 +138,82 @@ void _initSchedule() {
     ..registerFactory(
       () => ScheduleBloc(
         getAllSchedules: serviceLocator(),
+      ),
+    );
+}
+
+void _initExerciseSchedule() {
+  serviceLocator
+    // Data Source
+    ..registerFactory<ExerciseScheduleRemoteDataSource>(
+      () => ExerciseScheduleRemoteDataSourceImpl(
+        serviceLocator(),
+      ),
+    )
+    // Repository
+    ..registerFactory<ExerciseScheduleRepository>(
+      () => ExerciseScheduleRepositoryImpl(
+        serviceLocator(),
+        serviceLocator(),
+      ),
+    )
+    // Usecases
+    ..registerFactory(
+      () => GetAllExerciseSchedules(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory(
+      () => GetExerciseSchedule(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory(
+      () => TriggerExerciseSchedule(
+        serviceLocator(),
+      ),
+    )
+    // Bloc
+    ..registerFactory(
+      () => ExerciseScheduleBloc(
+        getAllExerciseSchedules: serviceLocator(),
+        getExerciseSchedule: serviceLocator(),
+        triggerExerciseSchedule: serviceLocator(),
+      ),
+    );
+}
+
+void _initHistory() {
+  serviceLocator
+    // Data Source
+    ..registerFactory<HistoryRemoteDataSource>(
+      () => HistoryRemoteDataSourceImpl(
+        serviceLocator(),
+      ),
+    )
+    // Repository
+    ..registerFactory<HistoryRepository>(
+      () => HistoryRepositoryImpl(
+        serviceLocator(),
+        serviceLocator(),
+      ),
+    )
+    // Usecases
+    ..registerFactory(
+      () => RecordHistory(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory(
+      () => GetAllHistories(
+        serviceLocator(),
+      ),
+    )
+    // Bloc
+    ..registerFactory(
+      () => HistoryBloc(
+        recordHistory: serviceLocator(),
+        getAllHistories: serviceLocator(),
       ),
     );
 }

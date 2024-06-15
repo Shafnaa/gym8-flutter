@@ -13,6 +13,11 @@ final class HistoryFailure extends HistoryState {
 }
 
 final class HistoriesDisplaySuccess extends HistoryState {
-  final List<History> schedules;
-  HistoriesDisplaySuccess(this.schedules);
+  final List<History> histories;
+  HistoriesDisplaySuccess(this.histories);
+}
+
+final class HistoryRecordSuccess extends HistoryState {
+  final List<History> histories;
+  HistoryRecordSuccess(this.histories);
 }

@@ -11,7 +11,7 @@ import 'package:gym8/features/auth/presentation/widgets/pass_field.dart';
 import 'package:gym8/features/auth/presentation/widgets/auth_button.dart';
 import 'package:gym8/features/auth/presentation/widgets/auth_divider.dart';
 import 'package:gym8/features/auth/presentation/widgets/auth_google_button.dart';
-import 'package:gym8/features/exercise/presentation/widgets/main_wrapper.dart';
+import 'package:gym8/features/exercise/presentation/pages/main_wrapper.dart';
 
 class SignUpPage extends StatefulWidget {
   static route(

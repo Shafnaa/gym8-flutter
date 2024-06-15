@@ -1,4 +1,5 @@
 {
   "java.configuration.updateBuildConfiguration": "interactive",
-  "cmake.configureOnOpen": true
+  "cmake.configureOnOpen": true,
+  "cmake.sourceDirectory": "E:/project/mobile/gym8/linux/flutter"
 }

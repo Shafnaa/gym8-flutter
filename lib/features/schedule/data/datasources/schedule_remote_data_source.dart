@@ -14,17 +14,14 @@ class ScheduleRemoteDataSourceImpl implements ScheduleRemoteDataSource {
   Future<List<ScheduleModel>> getAllSchedules() async {
     try {
       var query = supabaseClient.from("schedules").select(
-            '*, days (name), splits (name)',
+            '*, days (*), splits (*)',
           );
 
-      final exercises = await query;
+      final schedules = await query;
 
-      return exercises
+      return schedules
           .map(
-            (exercise) => ScheduleModel.fromJson(exercise).copyWith(
-              dayName: exercise['days']['name'],
-              splitName: exercise['splits']['image_url'],
-            ),
+            (schedule) => ScheduleModel.fromJson(schedule),
           )
           .toList();
     } on PostgrestException catch (e) {

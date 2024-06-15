@@ -11,15 +11,16 @@ import 'package:gym8/features/auth/presentation/widgets/auth_header.dart';
 import 'package:gym8/features/auth/presentation/widgets/auth_button.dart';
 import 'package:gym8/features/auth/presentation/widgets/auth_divider.dart';
 import 'package:gym8/features/auth/presentation/widgets/auth_google_button.dart';
-import 'package:gym8/features/exercise/presentation/widgets/main_wrapper.dart';
+import 'package:gym8/features/exercise/presentation/pages/main_wrapper.dart';
 
 class SignInPage extends StatefulWidget {
   static route(
     BuildContext context,
   ) =>
-      Navigator.pushNamed(
+      Navigator.pushNamedAndRemoveUntil(
         context,
         '/SignIn',
+        (route) => false,
       );
 
   const SignInPage({super.key});

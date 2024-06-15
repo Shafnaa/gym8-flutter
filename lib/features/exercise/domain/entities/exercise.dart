@@ -1,29 +1,24 @@
+import 'package:gym8/features/exercise/domain/entities/difficulty.dart';
+import 'package:gym8/features/exercise/domain/entities/equipment.dart';
+import 'package:gym8/features/exercise/domain/entities/muscle.dart';
+import 'package:gym8/features/exercise/domain/entities/type.dart';
+
 class Exercise {
   final int id;
   final String name;
   final String instruction;
-  final int muscleId;
-  final String? muscleName;
-  final String? muscleImageUrl;
-  final int typeId;
-  final String? typeName;
-  final int equipmentId;
-  final String? equipmentName;
-  final int difficultyId;
-  final String? difficultyName;
+  final Muscle muscle;
+  final Type type;
+  final Equipment equipment;
+  final Difficulty difficulty;
 
   Exercise({
     required this.id,
     required this.name,
     required this.instruction,
-    required this.muscleId,
-    this.muscleName,
-    this.muscleImageUrl,
-    required this.typeId,
-    this.typeName,
-    required this.equipmentId,
-    this.equipmentName,
-    required this.difficultyId,
-    this.difficultyName,
+    required this.muscle,
+    required this.type,
+    required this.equipment,
+    required this.difficulty,
   });
 }

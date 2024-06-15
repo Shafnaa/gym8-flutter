@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpdart/fpdart.dart' as fpdart;
+import 'package:gym8/core/common/widgets/loader.dart';
+import 'package:gym8/core/utils/show_snackbar.dart';
 import 'package:gym8/features/exercise/domain/entities/exercise.dart';
 import 'package:gym8/features/exercise/presentation/widgets/difficulty_category.dart';
-import 'package:gym8/features/exercise/presentation/widgets/schedule_button.dart';
+import 'package:gym8/features/exercise_schedule/presentation/widgets/schedule_button.dart';
 import 'package:gym8/features/exercise/presentation/widgets/type_category.dart';
+import 'package:gym8/features/schedule/presentation/bloc/schedule_bloc.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   static route(
     BuildContext context,
     Exercise exercise,
@@ -23,6 +28,18 @@ class DetailPage extends StatelessWidget {
   });
 
   @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<ScheduleBloc>().add(ScheduleFetchAllSchedules());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
@@ -33,7 +50,7 @@ class DetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              exercise.name,
+              widget.exercise.name,
               style: const TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
@@ -57,7 +74,7 @@ class DetailPage extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      exercise.muscleName ?? "",
+                      widget.exercise.muscle.name,
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -79,8 +96,8 @@ class DetailPage extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     DifficultyCategory(
-                      id: exercise.difficultyId,
-                      name: exercise.difficultyName,
+                      id: widget.exercise.difficulty.id,
+                      name: widget.exercise.difficulty.name,
                     ),
                   ],
                 ),
@@ -98,8 +115,8 @@ class DetailPage extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     TypeCategory(
-                      id: exercise.typeId,
-                      name: exercise.typeName,
+                      id: widget.exercise.type.id,
+                      name: widget.exercise.type.name,
                     ),
                   ],
                 ),
@@ -117,7 +134,7 @@ class DetailPage extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      exercise.equipmentName ?? "",
+                      widget.exercise.equipment.name,
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -143,7 +160,7 @@ class DetailPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  exercise.instruction,
+                  widget.exercise.instruction,
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
@@ -152,33 +169,51 @@ class DetailPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
-            const Column(
+            Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Add to your menu",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ScheduleButton(),
-                    SizedBox(width: 12),
-                    ScheduleButton(),
-                    SizedBox(width: 12),
-                    ScheduleButton(),
-                    SizedBox(width: 12),
-                    ScheduleButton(),
-                    SizedBox(width: 12),
-                    ScheduleButton(),
-                  ],
-                )
+                const SizedBox(height: 12),
+                BlocConsumer<ScheduleBloc, ScheduleState>(
+                  listener: (context, state) {
+                    if (state is ScheduleFailure) {
+                      showSnackBar(context, state.error);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is ScheduleLoading) {
+                      return const Loader();
+                    }
+
+                    if (state is SchedulesDisplaySuccess) {
+                      final List<Widget> scheduleButtons = state.schedules
+                          .filter((t) => t.split.id != 1)
+                          .map((schedule) => ScheduleButton(
+                                exerciseId: widget.exercise.id,
+                                schedule: schedule,
+                              ))
+                          .toList();
+
+                      return Wrap(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        direction: Axis.horizontal,
+                        alignment: WrapAlignment.start,
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        spacing: 12,
+                        children: scheduleButtons,
+                      );
+                    }
+
+                    return const Text("Hmm kenapa gagal yak!?");
+                  },
+                ),
               ],
             ),
           ],

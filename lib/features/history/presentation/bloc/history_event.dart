@@ -12,3 +12,5 @@ final class HistoryFetchHistory extends HistoryEvent {
     required this.id,
   });
 }
+
+final class HistoryRecordHistory extends HistoryEvent {}

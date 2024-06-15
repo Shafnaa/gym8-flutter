@@ -1,15 +1,14 @@
+import 'package:gym8/features/schedule/domain/entities/day.dart';
+import 'package:gym8/features/schedule/domain/entities/split.dart';
+
 class Schedule {
   final int id;
-  final int dayId;
-  final String? dayName;
-  final int splitId;
-  final String? splitName;
+  final Day day;
+  final Split split;
 
   Schedule({
     required this.id,
-    required this.dayId,
-    this.dayName,
-    required this.splitId,
-    this.splitName,
+    required this.day,
+    required this.split,
   });
 }

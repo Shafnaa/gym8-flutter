@@ -4,8 +4,10 @@ import 'package:gym8/config/routes/routes.dart';
 import 'package:gym8/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:gym8/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:gym8/features/exercise/presentation/bloc/exercise_bloc.dart';
+import 'package:gym8/features/exercise_schedule/presentation/bloc/exercise_schedule_bloc.dart';
+import 'package:gym8/features/history/presentation/bloc/history_bloc.dart';
 import 'package:gym8/features/schedule/presentation/bloc/schedule_bloc.dart';
-import 'package:gym8/features/exercise/presentation/widgets/main_wrapper.dart';
+import 'package:gym8/features/exercise/presentation/pages/main_wrapper.dart';
 import 'package:gym8/init_dependencies.dart';
 import 'package:gym8/core/theme/theme.dart';
 import 'package:gym8/features/auth/presentation/pages/sign_in_page.dart';
@@ -27,6 +29,12 @@ Future<void> main() async {
       ),
       BlocProvider(
         create: (context) => serviceLocator<ScheduleBloc>(),
+      ),
+      BlocProvider(
+        create: (context) => serviceLocator<ExerciseScheduleBloc>(),
+      ),
+      BlocProvider(
+        create: (context) => serviceLocator<HistoryBloc>(),
       )
     ],
     child: const MyApp(),

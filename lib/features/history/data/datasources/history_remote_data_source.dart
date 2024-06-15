@@ -4,6 +4,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class HistoryRemoteDataSource {
   Future<List<HistoryModel>> getAllHistories();
+
+  Future<List<HistoryModel>> recordHistory();
 }
 
 class HistoryRemoteDataSourceImpl implements HistoryRemoteDataSource {
@@ -14,7 +16,7 @@ class HistoryRemoteDataSourceImpl implements HistoryRemoteDataSource {
   Future<List<HistoryModel>> getAllHistories() async {
     try {
       var query = supabaseClient.from("histories").select(
-            'id, created_at',
+            '*',
           );
 
       final histories = await query;
@@ -24,6 +26,19 @@ class HistoryRemoteDataSourceImpl implements HistoryRemoteDataSource {
             (history) => HistoryModel.fromJson(history),
           )
           .toList();
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<List<HistoryModel>> recordHistory() async {
+    try {
+      await supabaseClient.rpc('record_history');
+
+      return getAllHistories();
     } on PostgrestException catch (e) {
       throw ServerException(e.message);
     } catch (e) {

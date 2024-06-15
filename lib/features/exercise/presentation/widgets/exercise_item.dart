@@ -23,7 +23,6 @@ class ExerciseItem extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           DetailPage.route(context, exercise);
-          // Navigator.push(context, DetailPage.route(exercise));
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(
@@ -37,11 +36,13 @@ class ExerciseItem extends StatelessWidget {
           ),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
               radius: 32,
               foregroundImage: NetworkImage(
-                exercise.muscleImageUrl ?? "",
+                exercise.muscle.imageUrl,
               ),
             ),
             const SizedBox(
@@ -59,7 +60,7 @@ class ExerciseItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Muscle: ${exercise.muscleName}",
+                  "Muscle: ${exercise.muscle.name}",
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 12,
@@ -68,15 +69,15 @@ class ExerciseItem extends StatelessWidget {
                 Row(
                   children: [
                     DifficultyCategory(
-                      id: exercise.difficultyId,
-                      name: exercise.difficultyName,
+                      id: exercise.difficulty.id,
+                      name: exercise.difficulty.name,
                     ),
                     const SizedBox(
                       width: 4,
                     ),
                     TypeCategory(
-                      id: exercise.typeId,
-                      name: exercise.typeName,
+                      id: exercise.type.id,
+                      name: exercise.type.name,
                     )
                   ],
                 )

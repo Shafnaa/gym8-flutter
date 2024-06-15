@@ -3,7 +3,8 @@ import 'package:gym8/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:gym8/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:gym8/features/exercise/domain/entities/exercise.dart';
 import 'package:gym8/features/exercise/presentation/pages/detail_page.dart';
-import '../../features/exercise/presentation/widgets/main_wrapper.dart';
+import 'package:gym8/features/exercise/presentation/pages/profile_page.dart';
+import '../../features/exercise/presentation/pages/main_wrapper.dart';
 
 class AppRoutes {
   static Route onGenerateRoutes(RouteSettings settings) {
@@ -20,6 +21,9 @@ class AppRoutes {
 
       case '/SignUp':
         return _materialRoute(const SignUpPage());
+
+      case '/Profile':
+        return _materialRoute(const ProfilePage());
 
       default:
         return _materialRoute(const MainWrapper());

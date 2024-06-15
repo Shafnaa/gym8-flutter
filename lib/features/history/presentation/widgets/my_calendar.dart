@@ -42,11 +42,6 @@ class _MyCalendarState extends State<MyCalendar> {
             focusedDay: DateTime.now(),
             firstDay: DateTime.utc(2023, 10, 16),
             lastDay: DateTime.utc(2025, 3, 14),
-            // eventLoader: (day) => day.day == 1
-            //     ? [
-            //         "Testing",
-            //       ]
-            //     : null,
             calendarFormat: CalendarFormat.month,
             availableCalendarFormats: const {CalendarFormat.month: "Month"},
             headerStyle: HeaderStyle(
@@ -76,8 +71,8 @@ class _MyCalendarState extends State<MyCalendar> {
               ),
             ),
             weekendDays: state.schedules
-                .where((element) => element.splitId == 1)
-                .map((e) => e.dayId)
+                .where((element) => element.split.id == 1)
+                .map((e) => e.day.id)
                 .toList(),
             calendarStyle: CalendarStyle(
               isTodayHighlighted: true,

@@ -6,6 +6,7 @@ import 'package:gym8/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:gym8/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:gym8/features/exercise/presentation/pages/home_page.dart';
 import 'package:gym8/features/exercise/presentation/pages/my_page.dart';
+import 'package:gym8/features/exercise/presentation/pages/profile_page.dart';
 
 class MainWrapper extends StatefulWidget {
   static route(BuildContext context) =>
@@ -31,11 +32,6 @@ class _MainWrapperState extends State<MainWrapper> {
       listener: (context, state) {
         if (state is! AuthSuccess) {
           SignInPage.route(context);
-          // Navigator.pushAndRemoveUntil(
-          //   context,
-          //   SignInPage.route(),
-          //   (route) => false,
-          // );
         }
       },
       builder: (context, state) {
@@ -44,39 +40,60 @@ class _MainWrapperState extends State<MainWrapper> {
         }
 
         return Scaffold(
-          appBar: AppBar(
-              // title: const Text("Gym 8"),
-              ),
-          bottomNavigationBar: NavigationBar(
-            selectedIndex: selectedIndex,
-            onDestinationSelected: (int index) {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
-            destinations: allDestinations
-                .map<NavigationDestination>(
-                  (Destination destination) => NavigationDestination(
-                    icon: Icon(
-                      destination.icon,
-                    ),
-                    label: destination.title,
-                  ),
-                )
-                .toList(),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 16,
-            ),
-            child: <Widget>[
-              const HomePage(),
-              const MyPage(),
-            ][selectedIndex],
-          ),
+          appBar: _appBar(),
+          bottomNavigationBar: _navigationBar(),
+          body: _body(),
         );
       },
+    );
+  }
+
+  Widget _body() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 12,
+        horizontal: 16,
+      ),
+      child: <Widget>[
+        const HomePage(),
+        const MyPage(),
+      ][selectedIndex],
+    );
+  }
+
+  NavigationBar _navigationBar() {
+    return NavigationBar(
+      selectedIndex: selectedIndex,
+      onDestinationSelected: (int index) {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
+      destinations: allDestinations
+          .map<NavigationDestination>(
+            (Destination destination) => NavigationDestination(
+              icon: Icon(
+                destination.icon,
+              ),
+              label: destination.title,
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  AppBar _appBar() {
+    return AppBar(
+      actions: <Widget>[
+        SizedBox(
+          child: IconButton(
+            onPressed: () => ProfilePage.route(context),
+            icon: const Icon(
+              Icons.settings,
+            ),
+          ),
+        )
+      ],
     );
   }
 }
